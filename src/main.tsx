@@ -1,15 +1,20 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import { Global } from '@emotion/react'
-import globalStyles from './styles/globalStyles.ts'
-import { AlertContextProvider } from './contexts/AlertContext.tsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import { Global } from "@emotion/react";
+import globalStyles from "./styles/globalStyles.ts";
+import { AlertContextProvider } from "./contexts/AlertContext.tsx";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const queryClient = new QueryClient();
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Global styles={globalStyles} />
-    <AlertContextProvider>
-      <App />
-    </AlertContextProvider>
-  </React.StrictMode>,
-)
+    <QueryClientProvider client={queryClient}>
+      <AlertContextProvider>
+        <App />
+      </AlertContextProvider>
+    </QueryClientProvider>
+  </React.StrictMode>
+);

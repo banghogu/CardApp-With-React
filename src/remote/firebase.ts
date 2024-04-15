@@ -2,25 +2,16 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-const {
-    REACT_APP_API_KEY,
-    REACT_APP_AUTH_DOMAIN,
-    REACT_APP_PROJECT_ID,
-    REACT_APP_STORAGE_BUCKET,
-    REACT_APP_MESSAGING_SENDER_ID,
-    REACT_APP_APP_ID,
-} = process.env;
-
 const firebaseConfig = {
-    apiKey: REACT_APP_API_KEY,
-    authDomain: REACT_APP_AUTH_DOMAIN,
-    projectId: REACT_APP_PROJECT_ID,
-    storageBucket: REACT_APP_STORAGE_BUCKET,
-    messagingSenderId: REACT_APP_MESSAGING_SENDER_ID,
-    appId: REACT_APP_APP_ID
+  apiKey: "AIzaSyA5WmjpLfWYQMGM8GysUyvGJckBlmGIwLE",
+  authDomain: "bangcard-fa034.firebaseapp.com",
+  projectId: "bangcard-fa034",
+  storageBucket: "bangcard-fa034.appspot.com",
+  messagingSenderId: "321100083350",
+  appId: "1:321100083350:web:8a8e0d2b6089024c8312b7",
 };
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app)
-export const store = getFirestore(app)
+export const auth = getAuth(app);
+export const store = getFirestore(app);
