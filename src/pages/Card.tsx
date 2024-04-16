@@ -9,6 +9,7 @@ import { Card } from "@/models/card";
 import { store } from "@/remote/firebase";
 import { css } from "@emotion/react";
 import { doc, getDoc } from "firebase/firestore";
+import { motion } from "framer-motion";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 
@@ -49,21 +50,37 @@ const Card = () => {
     subTitle = tags.join(", ");
   }
 
-  console.log(data.promotion);
-
   return (
     <>
       <Top title={`${corpName} ${name}`} subTitle={subTitle} />
       <ul>
         {benefit.map((text, index) => {
           return (
-            <ListRow
+            <motion.li
+              initial={{
+                opacity: 0,
+                translateX: -90,
+              }}
+              animate={{
+                opacity: 1,
+                translateX: 0,
+              }}
+              transition={{
+                duration: 0.8,
+                ease: "easeInOut",
+                delay: index * 0.1,
+              }}
               key={index}
-              left={<IconCheck />}
-              contents={
-                <ListRow.Texts title={`혜택 ${index + 1}`} subTitle={text} />
-              }
-            />
+            >
+              <ListRow
+                as="div"
+                key={index}
+                left={<IconCheck />}
+                contents={
+                  <ListRow.Texts title={`혜택 ${index + 1}`} subTitle={text} />
+                }
+              />
+            </motion.li>
           );
         })}
       </ul>

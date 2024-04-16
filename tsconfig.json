@@ -27,7 +27,8 @@
       "@shared/*": ["src/components/shared/*"],
       "@models/*": ["src/models/*"],
       "@pages/*": ["src/pages/*"],
-      "@mock/*": ["src/mock/*"]
+      "@mock/*": ["src/mock/*"],
+      "@store/*": ["src/store/*"]
     },
     "jsxImportSource": "@emotion/react"
   },
