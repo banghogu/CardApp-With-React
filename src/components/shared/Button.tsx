@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import {
@@ -7,6 +8,9 @@ import {
   buttonWeakMap,
   buttonSizeMap,
 } from "@styles/button";
+import Flex from "./Flex";
+import Text from "./Text";
+import Spacing from "./Spacing";
 
 //버튼 타입 속성 정의
 interface ButtonProps {
@@ -57,4 +61,41 @@ const BaseButton = styled.button<ButtonProps>(
       : undefined
 );
 
-export default BaseButton;
+function ButtonGroup({
+  title,
+  children,
+}: {
+  title?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Flex direction="column">
+      {title != null ? (
+        <>
+          <Text typography="t6" bold={true}>
+            {title}
+          </Text>
+          <Spacing size={8} />
+        </>
+      ) : null}
+      <Flex css={buttonGroupStyle}>{children}</Flex>
+    </Flex>
+  );
+}
+
+const buttonGroupStyle = css`
+  flex-wrap: wrap;
+  gap: 10px;
+
+  & button {
+    flex: 1;
+  }
+`;
+
+const Button = BaseButton as typeof BaseButton & {
+  Group: typeof ButtonGroup;
+};
+
+Button.Group = ButtonGroup;
+
+export default Button;

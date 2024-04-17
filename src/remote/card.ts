@@ -5,8 +5,6 @@ import {
   query,
   limit,
   startAfter,
-  doc,
-  getDoc,
 } from "firebase/firestore";
 import { store } from "./firebase";
 import { Card } from "@models/card";

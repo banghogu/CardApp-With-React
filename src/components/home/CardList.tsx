@@ -1,4 +1,3 @@
-import React, { useCallback } from "react";
 import ListRow from "../shared/ListRow";
 import { useInfiniteQuery } from "react-query";
 import { getCards } from "@/remote/card";

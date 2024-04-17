@@ -5,16 +5,23 @@ import ListRow from "@/components/shared/ListRow";
 import Text from "@/components/shared/Text";
 import Top from "@/components/shared/Top";
 import { COLLECTIONS } from "@/constants";
+import { useAlertContext } from "@/contexts/AlertContext";
+import { useAppSelector } from "@/hooks";
 import { Card } from "@/models/card";
 import { store } from "@/remote/firebase";
+import { RootState } from "@/store";
 import { css } from "@emotion/react";
 import { doc, getDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
+import { useCallback } from "react";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Card = () => {
   const { id = "" } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAppSelector((state: RootState) => state.userSlice);
+  const { open } = useAlertContext();
 
   const getCard = async (id: string) => {
     const snapshot = await getDoc(doc(store, COLLECTIONS.CARD, id));
@@ -49,6 +56,21 @@ const Card = () => {
   if (!data.promotion) {
     subTitle = tags.join(", ");
   }
+
+  const moveToApply = () => {
+    if (user == null) {
+      open({
+        title: "로그인이 필요한 기능입니다.",
+        onButtonClick: () => {
+          navigate(`/signin`);
+        },
+      });
+
+      return;
+    }
+
+    navigate(`/apply/${id}`);
+  };
 
   return (
     <>
@@ -92,7 +114,7 @@ const Card = () => {
           </Text>
         </Flex>
       )}
-      <FixedBottomButton label="신청하기" onClick={() => {}} />
+      <FixedBottomButton label="신청하기" onClick={moveToApply} />
     </>
   );
 };

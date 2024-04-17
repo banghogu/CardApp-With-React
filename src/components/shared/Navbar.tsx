@@ -34,7 +34,7 @@ function Navbar() {
     if (showSignButton) {
       return (
         <Link to="/signin">
-          <Button>로그인/회원가입</Button>
+          <Button>로그인</Button>
         </Link>
       );
     }
