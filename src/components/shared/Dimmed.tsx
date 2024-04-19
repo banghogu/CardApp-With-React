@@ -1,10 +1,6 @@
 import styled from "@emotion/styled";
 
-function Dimmed({ children }: { children: React.ReactNode }) {
-  return <Container>{children}</Container>;
-}
-
-const Container = styled.div`
+const Dimmed = styled.div`
   position: fixed;
   top: 0;
   right: 0;

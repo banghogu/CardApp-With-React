@@ -4,8 +4,6 @@ import { useParams } from "react-router-dom";
 import Terms from "@components/apply/Terms";
 import BasicInfo from "@components/apply/BasicInfo";
 import CardInfo from "@components/apply/CardInfo";
-import useUser from "@hooks/auth/useUser";
-import ProgressBar from "@shared/ProgressBar";
 
 import { ApplyValues, APPLY_STATUS } from "@models/apply";
 import { useAppSelector } from "@/hooks";
@@ -17,7 +15,7 @@ function Apply({ onSubmit }: { onSubmit: (applyValues: ApplyValues) => void }) {
   const { user } = useAppSelector((state: RootState) => state.userSlice);
   const { id } = useParams() as { id: string };
 
-  const storageKey = `applied-${user?.uid}-${id}`;
+  // const storageKey = `applied-${user?.uid}-${id}`;
 
   const [applyValues, setApplyValues] = useState<Partial<ApplyValues>>(() => {
     const applied = localStorage.getItem(storageKey);

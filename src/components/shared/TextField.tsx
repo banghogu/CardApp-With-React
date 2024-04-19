@@ -15,16 +15,17 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
-  function TextField(
-    { label, hasError, helpMessage, onFocus, onBlur, ...props },
+  (
+    { label, hasError, helpMessage, onFocus, onBlur, ...props }: TextFieldProps,
     ref
-  ) {
+  ) => {
     const [focused, setFocused] = useState(false);
 
     const labelColor = hasError ? "red" : focused ? "blue" : undefined;
 
     const handleFocus: FocusEventHandler<HTMLInputElement> = (event) => {
       setFocused(true);
+      // ?. 연산자는 앞에 함수가 존재할때만 실행
       onFocus?.(event);
     };
 

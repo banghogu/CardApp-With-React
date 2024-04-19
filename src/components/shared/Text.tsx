@@ -23,7 +23,12 @@ const Text = styled.span<TextProps>(
     textAlign,
     fontWeight: bold ? "bold" : fontWeight,
   }),
+
   ({ typography = "t5" }) => typographyMap[typography]
 );
 
 export default Text;
+
+// styled.span(
+//   함수가온다
+// )

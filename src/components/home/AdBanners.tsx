@@ -12,7 +12,7 @@ import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const AdBanners = () => {
-  const { data, isLoading } = useQuery(["adBanners"], () => getAdBanners());
+  const { data } = useQuery(["adBanners"], () => getAdBanners());
 
   return (
     <Containner>

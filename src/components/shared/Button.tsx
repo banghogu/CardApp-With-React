@@ -25,6 +25,7 @@ interface ButtonProps {
 //
 const BaseButton = styled.button<ButtonProps>(
   //기본 버튼 스타일 정의
+  //함수나 객체가 올 수 있다. 이건 객체만 들어왔음.
   {
     cursor: "pointer",
     fontWeight: "bold",
@@ -99,3 +100,5 @@ const Button = BaseButton as typeof BaseButton & {
 Button.Group = ButtonGroup;
 
 export default Button;
+
+styled.button({ cursor: "pointer" });

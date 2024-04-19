@@ -23,18 +23,18 @@ const Form = ({ onSubmit }: FormProps) => {
   const [dirty, setDirty] = useState<Partial<FormValues>>({});
 
   const handleFormValues = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setFormValues((prevFormValues) => ({
-      ...prevFormValues,
+    setFormValues((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
     }));
   }, []);
 
-  const handleBlur = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
     setDirty((prevDirty) => ({
       ...prevDirty,
       [e.target.name]: "true",
     }));
-  }, []);
+  };
 
   const errors = useMemo(() => validate(formValues), [formValues]);
 

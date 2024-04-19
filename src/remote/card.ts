@@ -24,9 +24,13 @@ export async function getCards(pageParam?: QuerySnapshot<Card>) {
 
   const lastVisible = cardSnapshot.docs[cardSnapshot.docs.length - 1];
 
+  // const items = cardSnapshot.docs.map((doc) => ({
+  //   id: doc.id,
+  //   ...(doc.data() as Card),
+  // }));
   const items = cardSnapshot.docs.map((doc) => ({
     id: doc.id,
-    ...(doc.data() as Card),
+    ...doc.data(),
   }));
 
   return { items, lastVisible };

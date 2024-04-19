@@ -19,6 +19,7 @@ function Navbar() {
 
   const showSignButton =
     ["/signup", "/signin"].includes(location.pathname) === false;
+
   const { user } = useAppSelector((state: RootState) => state.userSlice);
 
   const handleLogout = async () => {

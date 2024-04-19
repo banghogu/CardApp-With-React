@@ -7,7 +7,7 @@ interface FlexProps {
   direction?: CSSProperties["flexDirection"];
 }
 
-const Flex = styled.div<FlexProps>(({ align, justify, direction }) => ({
+const Flex = styled.div(({ align, justify, direction }: FlexProps) => ({
   display: "flex",
   alignItems: align,
   justifyContent: justify,

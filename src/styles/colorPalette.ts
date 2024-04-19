@@ -13,6 +13,7 @@ export const colorPalette = css`
 `;
 
 //지정한 색 변수를 바탕으로 생성
+// colors.red 형식
 export const colors = {
   red: "var(--red)",
   blue: "var(--blue)",
@@ -27,3 +28,5 @@ export const colors = {
 //export type Colors :  외부에서 사용할 수 있도록 내보내는 TypeScript의 타입 정의
 //이 타입은 colors 객체의 모든 키를 나타내는 문자열 중 하나만을 선택할 수 있다
 export type Colors = keyof typeof colors;
+
+// keyof typeof = 어떠한 객체에서 키만 빼오기

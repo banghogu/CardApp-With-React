@@ -15,7 +15,7 @@ const Input = styled.input`
     outline: none;
     border-color: ${colors.blue};
   }
-
+  //area-invalid = {true} , {false}
   &[aria-invalid="true"] {
     border-color: ${colors.red};
   }

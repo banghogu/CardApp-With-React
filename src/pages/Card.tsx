@@ -13,12 +13,11 @@ import { RootState } from "@/store";
 import { css } from "@emotion/react";
 import { doc, getDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
-import { useCallback } from "react";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 
 const Card = () => {
-  const { id = "" } = useParams();
+  const { id = "" } = useParams() as { id: string };
   const navigate = useNavigate();
   const { user } = useAppSelector((state: RootState) => state.userSlice);
   const { open } = useAlertContext();
@@ -38,24 +37,19 @@ const Card = () => {
       return cardData;
     },
     {
-      enabled: id !== "",
+      enabled: !!id,
     }
   );
 
   if (!data) {
     return null; // 로딩 상태 처리
   }
+
   const { name, corpName, tags, benefit } = data;
 
-  let subTitle;
-
-  if (data.promotion) {
-    subTitle = removeHtmlTags(data.promotion?.title);
-  }
-
-  if (!data.promotion) {
-    subTitle = tags.join(", ");
-  }
+  const subTitle = data.promotion
+    ? removeHtmlTags(data.promotion?.title)
+    : tags.join(", ");
 
   const moveToApply = () => {
     if (user == null) {
@@ -75,6 +69,7 @@ const Card = () => {
   return (
     <>
       <Top title={`${corpName} ${name}`} subTitle={subTitle} />
+
       <ul>
         {benefit.map((text, index) => {
           return (
@@ -106,6 +101,7 @@ const Card = () => {
           );
         })}
       </ul>
+
       {data.promotion === undefined ? null : (
         <Flex direction="column" css={termsContainerStyles}>
           <Text bold={true}>유의사항</Text>
@@ -114,6 +110,7 @@ const Card = () => {
           </Text>
         </Flex>
       )}
+
       <FixedBottomButton label="신청하기" onClick={moveToApply} />
     </>
   );
