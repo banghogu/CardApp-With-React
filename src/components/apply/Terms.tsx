@@ -9,8 +9,10 @@ const Terms = ({
 }: {
   onNext: (terms: ApplyValues["terms"]) => void;
 }) => {
-  const [termsAgreements, setTermsAgreements] = useState(() => {
-    return 약관목록.reduce<Record<string, boolean>>(
+  const [termsAgreements, setTermsAgreements] = useState<
+    Record<string, boolean>
+  >(() => {
+    return 약관목록.reduce(
       (prev, term) => ({
         ...prev,
         [term.id]: false,
@@ -20,20 +22,18 @@ const Terms = ({
   });
 
   const handleAllAgreement = (_: MouseEvent<HTMLElement>, checked: boolean) => {
-    setTermsAgreements((prevTerms) => {
-      return Object.keys(prevTerms).reduce(
-        (prev, key) => ({
-          ...prev,
-          [key]: checked,
-        }),
-        {}
-      );
-    });
+    const updatedAgreements: Record<string, boolean> = {};
+    for (const key in termsAgreements) {
+      updatedAgreements[key] = checked;
+    }
+    setTermsAgreements(updatedAgreements);
   };
 
+  //모두 = every
   const 모든약관이_동의되었는가 = Object.values(termsAgreements).every(
     (동의여부) => 동의여부
   );
+
   return (
     <div>
       <Agreement>

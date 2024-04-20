@@ -15,7 +15,7 @@ export const APPLY_STATUS = {
 
 export interface ApplyValues {
   userId: user["uid"];
-  terms: Array<Term["id"]>;
+  terms: Term["id"][];
   appliedAt: Date;
   cardId: string;
   salary: string;

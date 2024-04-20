@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from "react";
+import React, { useState } from "react";
 import { ApplyValues } from "@/models/apply";
 import Button from "../shared/Button";
 import Spacing from "../shared/Spacing";
@@ -18,14 +18,6 @@ const CardInfo = ({
   });
   const { isHipass, isMaster, isRf } = cardInfoValues;
 
-  const handleButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
-    const $button = e.target as HTMLButtonElement;
-
-    setCardInfoValues((prevValues) => ({
-      ...prevValues,
-      [$button.name]: JSON.parse($button.dataset.value as string),
-    }));
-  };
   return (
     <div>
       {/* 해외결제 할거니 */}
@@ -34,8 +26,12 @@ const CardInfo = ({
           name="isMaster"
           weak={isMaster === false}
           size="medium"
-          data-value={true}
-          onClick={handleButtonClick}
+          onClick={() => {
+            setCardInfoValues((prev) => ({
+              ...prev,
+              isMaster: true,
+            }));
+          }}
         >
           Master
         </Button>
@@ -43,8 +39,12 @@ const CardInfo = ({
           name="isMaster"
           weak={isMaster === true}
           size="medium"
-          data-value={false}
-          onClick={handleButtonClick}
+          onClick={() => {
+            setCardInfoValues((prev) => ({
+              ...prev,
+              isMaster: false,
+            }));
+          }}
         >
           국내전용
         </Button>
@@ -58,8 +58,12 @@ const CardInfo = ({
           name="isRf"
           weak={isRf === true}
           size="medium"
-          data-value={false}
-          onClick={handleButtonClick}
+          onClick={() => {
+            setCardInfoValues((prev) => ({
+              ...prev,
+              isRf: false,
+            }));
+          }}
         >
           신청안함
         </Button>
@@ -67,8 +71,12 @@ const CardInfo = ({
           name="isRf"
           weak={isRf === false}
           size="medium"
-          data-value={true}
-          onClick={handleButtonClick}
+          onClick={() => {
+            setCardInfoValues((prev) => ({
+              ...prev,
+              isRf: true,
+            }));
+          }}
         >
           신청
         </Button>
@@ -82,8 +90,12 @@ const CardInfo = ({
           name="isHipass"
           weak={isHipass === true}
           size="medium"
-          data-value={false}
-          onClick={handleButtonClick}
+          onClick={() => {
+            setCardInfoValues((prev) => ({
+              ...prev,
+              isHipass: false,
+            }));
+          }}
         >
           신청안함
         </Button>
@@ -91,8 +103,12 @@ const CardInfo = ({
           name="isHipass"
           weak={isHipass === false}
           size="medium"
-          data-value={true}
-          onClick={handleButtonClick}
+          onClick={() => {
+            setCardInfoValues((prev) => ({
+              ...prev,
+              isHipass: true,
+            }));
+          }}
         >
           신청
         </Button>

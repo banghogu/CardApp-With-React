@@ -1,103 +1,33 @@
-import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import BasicInfo from "@/components/apply/BasicInfo";
+import CardInfo from "@/components/apply/CardInfo";
+import Terms from "@/components/apply/Terms";
+import { ApplyValues } from "@/models/apply";
+import React, { useState } from "react";
 
-import Apply from "@components/apply";
-import useApplyCardMutation from "@components/apply/hooks/useApplyCardMutation";
-import { APPLY_STATUS } from "@/models/apply";
-import { useAlertContext } from "@/contexts/AlertContext";
-import { useAppSelector } from "@/hooks";
-import { RootState } from "@/store";
-import usePollApplyStatus from "@/hooks/usePollApplyStatus";
-import { updateApplyCard } from "@/remote/apply";
-import useAppliedCard from "@/components/apply/hooks/useAppliedCard";
+const Apply = () => {
+  const [step, setStep] = useState(2);
 
-const STATUS_MESSAGE = {
-  [APPLY_STATUS.REDAY]: "카드 심사를 준비하고있습니다.",
-  [APPLY_STATUS.PROGRESS]: "카드를 심사중입니다. 잠시만 기다려주세요.",
-  [APPLY_STATUS.COMPLETE]: "카드 신청이 완료되었습니다.",
+  const handleTermsChange = (terms: ApplyValues["terms"]) => {
+    console.log(terms);
+  };
+  const handleBasicInfoChange = (
+    infovalue: Pick<ApplyValues, "salary" | "creditScore" | "payDate">
+  ) => {
+    console.log(infovalue);
+  };
+  const handleCardInfoChange = (
+    cardInfo: Pick<ApplyValues, "isHipass" | "isMaster" | "isRf">
+  ) => {
+    console.log(cardInfo);
+  };
+
+  return (
+    <div>
+      {step === 0 ? <Terms onNext={handleTermsChange} /> : null}
+      {step === 1 ? <BasicInfo onNext={handleBasicInfoChange} /> : null}
+      {step === 2 ? <CardInfo onNext={handleCardInfoChange} /> : null}
+    </div>
+  );
 };
 
-function ApplyPage() {
-  const navigate = useNavigate();
-  const { open } = useAlertContext();
-
-  const [readyToPoll, setReadyToPoll] = useState(false);
-  const { user } = useAppSelector((state: RootState) => state.userSlice);
-  const { id } = useParams() as { id: string };
-
-  const { data } = useAppliedCard({
-    userId: user?.uid as string,
-    cardId: id,
-    options: {
-      onSuccess: (applied) => {
-        if (applied == null) {
-          return;
-        }
-
-        if (applied.status === APPLY_STATUS.COMPLETE) {
-          open({
-            title: "이미 발급이 완료된 카드입니다",
-            onButtonClick: () => {
-              window.history.back();
-            },
-          });
-
-          return;
-        }
-
-        setReadyToPoll(true);
-      },
-      onError: () => {},
-      suspense: true,
-    },
-  });
-
-  const { data: status } = usePollApplyStatus({
-    onSuccess: async () => {
-      await updateApplyCard({
-        userId: user?.uid as string,
-        cardId: id,
-        applyValues: {
-          status: APPLY_STATUS.COMPLETE,
-        },
-      });
-      navigate("/apply/done?success=true", {
-        replace: true,
-      });
-    },
-    onError: async () => {
-      await updateApplyCard({
-        userId: user?.uid as string,
-        cardId: id,
-        applyValues: {
-          status: APPLY_STATUS.REJECT,
-        },
-      });
-      navigate("/apply/done?success=false", {
-        replace: true,
-      });
-    },
-    enabled: readyToPoll,
-  });
-
-  const { mutate, isLoading: 카드를신청중인가 } = useApplyCardMutation({
-    onSuccess: () => {
-      setReadyToPoll(true);
-    },
-    onError: () => {
-      window.history.back();
-    },
-  });
-
-  if (data != null && data.status === APPLY_STATUS.COMPLETE) {
-    return null;
-  }
-
-  if (readyToPoll || 카드를신청중인가) {
-    return <FullPageLoader message={STATUS_MESSAGE[status ?? "REDAY"]} />;
-  }
-
-  return <Apply onSubmit={mutate} />;
-}
-
-export default ApplyPage;
+export default Apply;

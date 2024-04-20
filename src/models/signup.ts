@@ -4,3 +4,10 @@ export interface FormValues {
   rePassword: string;
   name: string;
 }
+
+export interface dirtyValues {
+  email?: boolean;
+  password?: boolean;
+  rePassword?: boolean;
+  name?: boolean;
+}

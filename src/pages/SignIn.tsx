@@ -21,7 +21,7 @@ const SignIn = () => {
       if (e instanceof FirebaseError) {
         if (e.code === "auth/wrong-password") {
           open({
-            title: "계정의 정보를 다시 확인해주세요",
+            title: "비밀번호를 다시 확인해주세요",
             onButtonClick: () => {
               //
             },
