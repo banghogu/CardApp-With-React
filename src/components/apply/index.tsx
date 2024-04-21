@@ -1,81 +1,91 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-
-import Terms from "@components/apply/Terms";
-import BasicInfo from "@components/apply/BasicInfo";
-import CardInfo from "@components/apply/CardInfo";
-
-import { ApplyValues, APPLY_STATUS } from "@models/apply";
-import { useAppSelector } from "@/hooks";
+import React, { useEffect, useState } from "react";
+import Terms from "./Terms";
+import BasicInfo from "./BasicInfo";
+import CardInfo from "./CardInfo";
+import { APPLY_STATUS, ApplyValues } from "@/models/apply";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { RootState } from "@/store";
+import { useParams } from "react-router-dom";
+import { clearStep, setStep1, setStep2 } from "@/store/applyStep.slice";
 
-const LAST_STEP = 3;
-
-function Apply({ onSubmit }: { onSubmit: (applyValues: ApplyValues) => void }) {
+const ApplyIndex = ({
+  onSubmit,
+}: {
+  onSubmit: (applyValues: ApplyValues) => void;
+}) => {
+  const dispatch = useAppDispatch();
+  const { stepInfo } = useAppSelector(
+    (state: RootState) => state.applyStepSlice
+  );
   const { user } = useAppSelector((state: RootState) => state.userSlice);
   const { id } = useParams() as { id: string };
-
-  // const storageKey = `applied-${user?.uid}-${id}`;
-
   const [applyValues, setApplyValues] = useState<Partial<ApplyValues>>(() => {
-    const applied = localStorage.getItem(storageKey);
-
-    if (applied == null) {
+    if (Object.keys(stepInfo).length === 0) {
       return {
         userId: user?.uid,
         cardId: id,
-        step: 0,
+        step: 0 as number,
       };
     }
-
-    return JSON.parse(applied);
+    return {
+      ...stepInfo,
+    };
   });
+
+  const handleTermsChange = (terms: ApplyValues["terms"]) => {
+    setApplyValues((prev) => ({
+      ...prev,
+      terms: terms,
+      step: (prev.step as number) + 1,
+    }));
+    dispatch(
+      setStep1({
+        terms: terms,
+        step: 1,
+      })
+    );
+  };
+  const handleBasicInfoChange = (
+    infovalue: Pick<ApplyValues, "salary" | "creditScore" | "payDate">
+  ) => {
+    setApplyValues((prev) => ({
+      ...prev,
+      ...infovalue,
+      step: (prev.step as number) + 1,
+    }));
+    dispatch(
+      setStep2({
+        infovalue: infovalue,
+        step: 2,
+      })
+    );
+  };
+  const handleCardInfoChange = (
+    cardInfo: Pick<ApplyValues, "isHipass" | "isMaster" | "isRf">
+  ) => {
+    setApplyValues((prev) => ({
+      ...prev,
+      ...cardInfo,
+      step: (prev.step as number) + 1,
+    }));
+  };
 
   useEffect(() => {
     if (applyValues.step === 3) {
-      localStorage.removeItem(storageKey);
-
       onSubmit({
         ...applyValues,
         appliedAt: new Date(),
         status: APPLY_STATUS.REDAY,
+        userId: user?.uid,
+        cardId: id,
+        step: 3 as number,
       } as ApplyValues);
-    } else {
-      localStorage.setItem(storageKey, JSON.stringify(applyValues));
+      dispatch(clearStep());
     }
-  }, [applyValues, onSubmit, storageKey]);
-
-  const handleTermsChange = (terms: ApplyValues["terms"]) => {
-    setApplyValues((prevValues) => ({
-      ...prevValues,
-      terms,
-      step: (prevValues.step as number) + 1,
-    }));
-  };
-
-  const handleBasicInfoChange = (
-    infoValues: Pick<ApplyValues, "salary" | "payDate" | "creditScore">
-  ) => {
-    setApplyValues((prevValues) => ({
-      ...prevValues,
-      ...infoValues,
-      step: (prevValues.step as number) + 1,
-    }));
-  };
-
-  const handleCardInfoChange = (
-    cardInfoValues: Pick<ApplyValues, "isHipass" | "isMaster" | "isRf">
-  ) => {
-    setApplyValues((prevValues) => ({
-      ...prevValues,
-      ...cardInfoValues,
-      step: (prevValues.step as number) + 1,
-    }));
-  };
+  }, [applyValues, onSubmit, dispatch]);
 
   return (
     <div>
-      <ProgressBar progress={(applyValues.step as number) / LAST_STEP} />
       {applyValues.step === 0 ? <Terms onNext={handleTermsChange} /> : null}
       {applyValues.step === 1 ? (
         <BasicInfo onNext={handleBasicInfoChange} />
@@ -85,6 +95,6 @@ function Apply({ onSubmit }: { onSubmit: (applyValues: ApplyValues) => void }) {
       ) : null}
     </div>
   );
-}
+};
 
-export default Apply;
+export default ApplyIndex;

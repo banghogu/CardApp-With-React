@@ -10,6 +10,7 @@ import PrivateRoute from "./components/auth/PrivateRoute";
 import Apply from "./pages/Apply";
 import ApplyDone from "./pages/ApplyDone";
 import { Suspense } from "react";
+import MyPage from "./pages/Mypage";
 
 function App() {
   return (
@@ -26,7 +27,9 @@ function App() {
           path="/apply/:id"
           element={
             <PrivateRoute>
-              <Apply />
+              <Suspense fallback={<></>}>
+                <Apply />
+              </Suspense>
             </PrivateRoute>
           }
         />
@@ -35,6 +38,14 @@ function App() {
           element={
             <PrivateRoute>
               <ApplyDone />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mypage"
+          element={
+            <PrivateRoute>
+              <MyPage />
             </PrivateRoute>
           }
         />

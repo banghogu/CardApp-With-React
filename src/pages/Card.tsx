@@ -6,13 +6,15 @@ import Text from "@/components/shared/Text";
 import Top from "@/components/shared/Top";
 import { COLLECTIONS } from "@/constants";
 import { useAlertContext } from "@/contexts/AlertContext";
-import { useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Card } from "@/models/card";
 import { store } from "@/remote/firebase";
 import { RootState } from "@/store";
+import { clearStep } from "@/store/applyStep.slice";
 import { css } from "@emotion/react";
 import { doc, getDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 

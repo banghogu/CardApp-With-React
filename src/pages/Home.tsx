@@ -1,8 +1,16 @@
 import AdBanners from "@/components/home/AdBanners";
 import CardList from "@/components/home/CardList";
 import Top from "@/components/shared/Top";
+import { useAppDispatch } from "@/hooks";
+import { clearStep } from "@/store/applyStep.slice";
+import { useEffect } from "react";
 
 const Home = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(clearStep());
+  }, [dispatch]);
+
   return (
     <div>
       <Top

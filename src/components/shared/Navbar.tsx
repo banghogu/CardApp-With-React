@@ -7,29 +7,25 @@ import { useCallback } from "react";
 import { colors } from "@styles/colorPalette";
 import Flex from "@shared/Flex";
 import Button from "@shared/Button";
-import { useAppDispatch, useAppSelector } from "@/hooks";
+import { useAppSelector } from "@/hooks";
 import { RootState } from "@/store";
-import { signOut } from "firebase/auth";
-import { auth } from "@/remote/firebase";
-import { clearUser } from "@/store/user.slice";
+import MyImage from "../my/MyImage";
 
 function Navbar() {
   const location = useLocation();
-  const dispatch = useAppDispatch();
 
   const showSignButton =
     ["/signup", "/signin"].includes(location.pathname) === false;
 
   const { user } = useAppSelector((state: RootState) => state.userSlice);
 
-  const handleLogout = async () => {
-    signOut(auth);
-    dispatch(clearUser());
-  };
-
   const renderButton = useCallback(() => {
     if (user != null) {
-      return <Button onClick={handleLogout}>로그아웃</Button>;
+      return (
+        <Link to="mypage">
+          <MyImage size={40} />
+        </Link>
+      );
     }
 
     if (showSignButton) {

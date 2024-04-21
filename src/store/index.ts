@@ -11,15 +11,17 @@ import {
   REHYDRATE,
 } from "redux-persist/es/constants";
 import userSlice from "./user.slice";
+import applyStepSlice from "./applyStep.slice";
 
 const rootReducer = combineReducers({
   userSlice: userSlice,
+  applyStepSlice: applyStepSlice,
 });
 
 const persistConfig = {
   key: "root",
   storage: storage,
-  whiteList: ["userSlice"],
+  whiteList: ["userSlice", "applyStepSlice"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

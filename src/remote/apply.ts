@@ -23,6 +23,7 @@ export async function updateApplyCard({
   userId: string;
   applyValues: Partial<ApplyValues>;
 }) {
+  console.log(cardId, userId, applyValues);
   const snapshot = await getDocs(
     query(
       collection(store, COLLECTIONS.CARD_APPLY),
@@ -56,6 +57,8 @@ export async function getAppliedCard({
   }
 
   const [applied] = snapshot.docs;
+
+  console.log(applied.data());
 
   return applied.data() as ApplyValues;
 }
