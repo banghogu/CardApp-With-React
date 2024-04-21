@@ -1,7 +1,7 @@
-import { useAppSelector } from "@/hooks";
-import { RootState } from "@/store";
-import React from "react";
-import { Navigate } from "react-router-dom";
+import { useAppSelector } from '@/hooks';
+import { RootState } from '@/store';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAppSelector((state: RootState) => state.userSlice);

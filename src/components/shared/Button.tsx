@@ -1,16 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import {
   ButtonColor,
   ButtonSize,
   buttonColorMap,
   buttonWeakMap,
   buttonSizeMap,
-} from "@styles/button";
-import Flex from "./Flex";
-import Text from "./Text";
-import Spacing from "./Spacing";
+} from '@styles/button';
+import Flex from './Flex';
+import Text from './Text';
+import Spacing from './Spacing';
 
 //버튼 타입 속성 정의
 interface ButtonProps {
@@ -27,20 +27,19 @@ const BaseButton = styled.button<ButtonProps>(
   //기본 버튼 스타일 정의
   //함수나 객체가 올 수 있다. 이건 객체만 들어왔음.
   {
-    cursor: "pointer",
-    fontWeight: "bold",
-    borderRadius: "6px",
+    cursor: 'pointer',
+    fontWeight: 'bold',
+    borderRadius: '6px',
   },
 
   //color와 weak에 대한 스타일 정의.
   //둘다 없으면  primary색으로 그냥 일반 버튼이고
   //색만 있으면 해당 색의 일반버튼
   //색도 있고, weak면 해당 색의 weak버튼
-  ({ color = "primary", weak }) =>
-    weak ? buttonWeakMap[color] : buttonColorMap[color],
+  ({ color = 'primary', weak }) => (weak ? buttonWeakMap[color] : buttonColorMap[color]),
 
   //기본 버튼 사이즈는 small이고 size속성 받은 대로 해당 버튼 사이즈
-  ({ size = "small" }) => buttonSizeMap[size],
+  ({ size = 'small' }) => buttonSizeMap[size],
 
   //full 속성을 받으면 w-100% 버튼
   ({ full }) =>
@@ -62,13 +61,7 @@ const BaseButton = styled.button<ButtonProps>(
       : undefined
 );
 
-function ButtonGroup({
-  title,
-  children,
-}: {
-  title?: string;
-  children: React.ReactNode;
-}) {
+function ButtonGroup({ title, children }: { title?: string; children: React.ReactNode }) {
   return (
     <Flex direction="column">
       {title != null ? (
@@ -101,4 +94,4 @@ Button.Group = ButtonGroup;
 
 export default Button;
 
-styled.button({ cursor: "pointer" });
+styled.button({ cursor: 'pointer' });

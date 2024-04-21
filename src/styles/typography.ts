@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 //글자 스타일 정의
 export const typographyMap = {

@@ -1,20 +1,16 @@
-import React, { ChangeEvent, useState } from "react";
-import Select from "../shared/Select";
-import { 연소득옵션, 신용점수옵션, 결제일옵션 } from "@constants/apply";
-import { ApplyValues } from "@/models/apply";
-import FixedBottomButton from "../shared/FixedBottomButton";
+import { ChangeEvent, useState } from 'react';
+import Select from '../shared/Select';
+import { 연소득옵션, 신용점수옵션, 결제일옵션 } from '@constants/apply';
+import { ApplyValues } from '@/models/apply';
+import FixedBottomButton from '../shared/FixedBottomButton';
 
-type InfoValues = Pick<ApplyValues, "salary" | "creditScore" | "payDate">;
+type InfoValues = Pick<ApplyValues, 'salary' | 'creditScore' | 'payDate'>;
 
-const BasicInfo = ({
-  onNext,
-}: {
-  onNext: (infoValues: InfoValues) => void;
-}) => {
+const BasicInfo = ({ onNext }: { onNext: (infoValues: InfoValues) => void }) => {
   const [infoValues, setInfoValues] = useState<InfoValues>({
-    salary: "",
-    creditScore: "",
-    payDate: "",
+    salary: '',
+    creditScore: '',
+    payDate: '',
   });
 
   const handleInfoChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -23,9 +19,7 @@ const BasicInfo = ({
       [e.target.name]: e.target.value,
     }));
   };
-  const 모든정보가선택되었는가 = Object.values(infoValues).every(
-    (value) => value
-  );
+  const 모든정보가선택되었는가 = Object.values(infoValues).every((value) => value);
   return (
     <div>
       <Select

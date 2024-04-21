@@ -1,22 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { ChangeEvent } from "react";
-import styled from "@emotion/styled";
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import { RootState } from "@/store";
-import { getAuth, updateProfile } from "firebase/auth";
-import { app, storage, store } from "@/remote/firebase";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { collection, doc, updateDoc } from "firebase/firestore";
-import { COLLECTIONS } from "@/constants";
-import { setUserImg } from "@/store/user.slice";
+import { ChangeEvent } from 'react';
+import styled from '@emotion/styled';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { RootState } from '@/store';
+import { getAuth, updateProfile } from 'firebase/auth';
+import { app, storage, store } from '@/remote/firebase';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { collection, doc, updateDoc } from 'firebase/firestore';
+import { COLLECTIONS } from '@/constants';
+import { setUserImg } from '@/store/user.slice';
 
-function MyImage({
-  size = 40,
-  mode = "default",
-}: {
-  size?: number;
-  mode?: "default" | "upload";
-}) {
+function MyImage({ size = 40, mode = 'default' }: { size?: number; mode?: 'default' | 'upload' }) {
   const { user } = useAppSelector((state: RootState) => state.userSlice);
   const dispatch = useAppDispatch();
 
@@ -43,14 +37,13 @@ function MyImage({
     <Container>
       <img
         src={
-          user?.photoURL ||
-          "https://cdn1.iconfinder.com/data/icons/user-pictures/100/male3-64.png"
+          user?.photoURL || 'https://cdn1.iconfinder.com/data/icons/user-pictures/100/male3-64.png'
         }
         alt="유저의 이미지"
         width={size}
         height={size}
       />
-      {mode === "upload" ? (
+      {mode === 'upload' ? (
         <input type="file" accept="image/*" onChange={handleUploadImage} />
       ) : null}
     </Container>
@@ -66,7 +59,7 @@ const Container = styled.div`
     border-radius: 100%;
   }
 
-  & input[type="file"] {
+  & input[type='file'] {
     position: absolute;
     top: 0;
     left: 0;

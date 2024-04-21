@@ -1,4 +1,4 @@
-import { user } from "./user";
+import { user } from './user';
 
 export interface Term {
   id: string;
@@ -7,15 +7,15 @@ export interface Term {
 }
 
 export const APPLY_STATUS = {
-  REDAY: "REDAY",
-  PROGRESS: "PROGRESS",
-  COMPLETE: "COMPLETE",
-  REJECT: "REJECT",
+  REDAY: 'REDAY',
+  PROGRESS: 'PROGRESS',
+  COMPLETE: 'COMPLETE',
+  REJECT: 'REJECT',
 } as const;
 
 export interface ApplyValues {
-  userId: user["uid"];
-  terms: Term["id"][];
+  userId: user['uid'];
+  terms: Term['id'][];
   appliedAt: Date;
   cardId: string;
   salary: string;

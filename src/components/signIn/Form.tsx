@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import { Link } from "react-router-dom";
-import validator from "validator";
+import { css } from '@emotion/react';
+import { Link } from 'react-router-dom';
+import validator from 'validator';
 
-import Flex from "@shared/Flex";
-import TextField from "@shared/TextField";
-import Button from "@shared/Button";
-import Spacing from "@shared/Spacing";
-import Text from "@shared/Text";
-import { colors } from "@styles/colorPalette";
+import Flex from '@shared/Flex';
+import TextField from '@shared/TextField';
+import Button from '@shared/Button';
+import Spacing from '@shared/Spacing';
+import Text from '@shared/Text';
+import { colors } from '@styles/colorPalette';
 
-import { ChangeEvent, useCallback, useMemo, useState } from "react";
-import { FormValues } from "@/models/signin";
+import { ChangeEvent, useCallback, useMemo, useState } from 'react';
+import { FormValues } from '@/models/signin';
 
 interface FormProps {
   onSubmit: (formValues: FormValues) => void;
@@ -19,8 +19,8 @@ interface FormProps {
 
 function Form({ onSubmit }: FormProps) {
   const [formValues, setFormValues] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleFormValues = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -77,11 +77,11 @@ function validate(formValues: FormValues) {
   let errors: Partial<FormValues> = {};
 
   if (validator.isEmail(formValues.email) === false) {
-    errors.email = "이메일 형식을 확인해주세요";
+    errors.email = '이메일 형식을 확인해주세요';
   }
 
   if (formValues.password.length < 8) {
-    errors.password = "비밀번호를 8글자 이상 입력해주세요";
+    errors.password = '비밀번호를 8글자 이상 입력해주세요';
   }
 
   return errors;

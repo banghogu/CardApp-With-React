@@ -1,21 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import { Link, useLocation } from "react-router-dom";
+import { css } from '@emotion/react';
+import { Link, useLocation } from 'react-router-dom';
 
-import { useCallback } from "react";
+import { useCallback } from 'react';
 
-import { colors } from "@styles/colorPalette";
-import Flex from "@shared/Flex";
-import Button from "@shared/Button";
-import { useAppSelector } from "@/hooks";
-import { RootState } from "@/store";
-import MyImage from "../my/MyImage";
+import { colors } from '@styles/colorPalette';
+import Flex from '@shared/Flex';
+import Button from '@shared/Button';
+import { useAppSelector } from '@/hooks';
+import { RootState } from '@/store';
+import MyImage from '../my/MyImage';
 
 function Navbar() {
   const location = useLocation();
 
-  const showSignButton =
-    ["/signup", "/signin"].includes(location.pathname) === false;
+  const showSignButton = ['/signup', '/signin'].includes(location.pathname) === false;
 
   const { user } = useAppSelector((state: RootState) => state.userSlice);
 

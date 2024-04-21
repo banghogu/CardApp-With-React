@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 interface SpacingProps {
   size: number;
-  direction?: "vertical" | "horizontal";
+  direction?: 'vertical' | 'horizontal';
 }
 
 const Spacing = styled.div<SpacingProps>`
-  ${({ size, direction = "vertical" }) =>
-    direction === "vertical"
+  ${({ size, direction = 'vertical' }) =>
+    direction === 'vertical'
       ? `
         height: ${size}px;
       `

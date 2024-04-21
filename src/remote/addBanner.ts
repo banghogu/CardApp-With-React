@@ -1,13 +1,12 @@
-import { collection, getDocs } from "firebase/firestore";
-import { store } from "./firebase";
+import { collection, getDocs } from 'firebase/firestore';
+import { store } from './firebase';
 
 // import { AdBanner } from "@models/card";
-import { COLLECTIONS } from "@/constants";
+import { COLLECTIONS } from '@/constants';
+import { AdBanner } from '@/models/card';
 
 export async function getAdBanners() {
-  const adBannerSnapshot = await getDocs(
-    collection(store, COLLECTIONS.ADBANNER)
-  );
+  const adBannerSnapshot = await getDocs(collection(store, COLLECTIONS.ADBANNER));
 
   // return adBannerSnapshot.docs.map((doc) => ({
   //   id: doc.id,
@@ -15,6 +14,6 @@ export async function getAdBanners() {
   // }));
   return adBannerSnapshot.docs.map((doc) => ({
     id: doc.id,
-    ...doc.data(),
+    ...(doc.data() as AdBanner),
   }));
 }

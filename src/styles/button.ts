@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import { colors } from "./colorPalette";
+import { css } from '@emotion/react';
+import { colors } from './colorPalette';
 
 //기본 버튼 색상이 fill되어있음
 export const buttonColorMap = {

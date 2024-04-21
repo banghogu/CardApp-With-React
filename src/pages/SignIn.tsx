@@ -1,10 +1,10 @@
-import Form from "@/components/signIn/Form";
-import { useAlertContext } from "@/contexts/AlertContext";
-import { FormValues } from "@/models/signin";
-import { auth } from "@/remote/firebase";
-import { FirebaseError } from "firebase/app";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import Form from '@/components/signIn/Form';
+import { useAlertContext } from '@/contexts/AlertContext';
+import { FormValues } from '@/models/signin';
+import { auth } from '@/remote/firebase';
+import { FirebaseError } from 'firebase/app';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const { open } = useAlertContext();
@@ -15,13 +15,13 @@ const SignIn = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
 
-      navigate("/");
+      navigate('/');
     } catch (e) {
       // firebase 의 에러
       if (e instanceof FirebaseError) {
-        if (e.code === "auth/wrong-password") {
+        if (e.code === 'auth/wrong-password') {
           open({
-            title: "비밀번호를 다시 확인해주세요",
+            title: '비밀번호를 다시 확인해주세요',
             onButtonClick: () => {
               //
             },
@@ -33,7 +33,7 @@ const SignIn = () => {
 
       // 일반적인 에러
       open({
-        title: "잠시 후 다시 시도해주세요.",
+        title: '잠시 후 다시 시도해주세요.',
         onButtonClick: () => {
           //
         },

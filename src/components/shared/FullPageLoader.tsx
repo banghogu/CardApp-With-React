@@ -1,12 +1,12 @@
-import Flex from "./Flex";
-import Text from "./Text";
-import Spacing from "./Spacing";
+import Flex from './Flex';
+import Text from './Text';
+import Spacing from './Spacing';
 
 function FullPageLoader({ message }: { message?: string }) {
   return (
     <Flex
       style={{
-        position: "fixed",
+        position: 'fixed',
         top: 0,
         right: 0,
         bottom: 0,

@@ -1,12 +1,7 @@
-import {
-  FocusEventHandler,
-  forwardRef,
-  InputHTMLAttributes,
-  useState,
-} from "react";
+import { FocusEventHandler, forwardRef, InputHTMLAttributes, useState } from 'react';
 
-import Text from "./Text";
-import Input from "./Input";
+import Text from './Text';
+import Input from './Input';
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: React.ReactNode;
@@ -15,13 +10,10 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
-  (
-    { label, hasError, helpMessage, onFocus, onBlur, ...props }: TextFieldProps,
-    ref
-  ) => {
+  ({ label, hasError, helpMessage, onFocus, onBlur, ...props }: TextFieldProps, ref) => {
     const [focused, setFocused] = useState(false);
 
-    const labelColor = hasError ? "red" : focused ? "blue" : undefined;
+    const labelColor = hasError ? 'red' : focused ? 'blue' : undefined;
 
     const handleFocus: FocusEventHandler<HTMLInputElement> = (event) => {
       setFocused(true);

@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { forwardRef, SelectHTMLAttributes } from "react";
+import { forwardRef, SelectHTMLAttributes } from 'react';
 
-import Flex from "./Flex";
-import Text from "./Text";
-import styled from "@emotion/styled";
-import { colors } from "@styles/colorPalette";
+import Flex from './Flex';
+import Text from './Text';
+import styled from '@emotion/styled';
+import { colors } from '@styles/colorPalette';
 
-import { Option } from "@models/apply";
+import { Option } from '@models/apply';
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
@@ -34,12 +34,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
   return (
     <Flex direction="column">
       {label ? (
-        <Text
-          typography="t7"
-          color="black"
-          display="inline-block"
-          style={{ marginBottom: 6 }}
-        >
+        <Text typography="t7" color="black" display="inline-block" style={{ marginBottom: 6 }}>
           {label}
         </Text>
       ) : null}

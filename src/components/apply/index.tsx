@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from "react";
-import Terms from "./Terms";
-import BasicInfo from "./BasicInfo";
-import CardInfo from "./CardInfo";
-import { APPLY_STATUS, ApplyValues } from "@/models/apply";
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import { RootState } from "@/store";
-import { useParams } from "react-router-dom";
-import { clearStep, setStep1, setStep2 } from "@/store/applyStep.slice";
+import { useEffect, useState } from 'react';
+import Terms from './Terms';
+import BasicInfo from './BasicInfo';
+import CardInfo from './CardInfo';
+import { APPLY_STATUS, ApplyValues } from '@/models/apply';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { RootState } from '@/store';
+import { useParams } from 'react-router-dom';
+import { clearStep, setStep1, setStep2 } from '@/store/applyStep.slice';
+import ProgressBar from '../shared/ProgressBar';
 
-const ApplyIndex = ({
-  onSubmit,
-}: {
-  onSubmit: (applyValues: ApplyValues) => void;
-}) => {
+const LAST_STEP = 3;
+
+// eslint-disable-next-line no-unused-vars
+const ApplyIndex = ({ onSubmit }: { onSubmit: (applyValues: ApplyValues) => void }) => {
   const dispatch = useAppDispatch();
-  const { stepInfo } = useAppSelector(
-    (state: RootState) => state.applyStepSlice
-  );
+  const { stepInfo } = useAppSelector((state: RootState) => state.applyStepSlice);
   const { user } = useAppSelector((state: RootState) => state.userSlice);
   const { id } = useParams() as { id: string };
   const [applyValues, setApplyValues] = useState<Partial<ApplyValues>>(() => {
@@ -32,7 +30,7 @@ const ApplyIndex = ({
     };
   });
 
-  const handleTermsChange = (terms: ApplyValues["terms"]) => {
+  const handleTermsChange = (terms: ApplyValues['terms']) => {
     setApplyValues((prev) => ({
       ...prev,
       terms: terms,
@@ -46,7 +44,7 @@ const ApplyIndex = ({
     );
   };
   const handleBasicInfoChange = (
-    infovalue: Pick<ApplyValues, "salary" | "creditScore" | "payDate">
+    infovalue: Pick<ApplyValues, 'salary' | 'creditScore' | 'payDate'>
   ) => {
     setApplyValues((prev) => ({
       ...prev,
@@ -60,9 +58,7 @@ const ApplyIndex = ({
       })
     );
   };
-  const handleCardInfoChange = (
-    cardInfo: Pick<ApplyValues, "isHipass" | "isMaster" | "isRf">
-  ) => {
+  const handleCardInfoChange = (cardInfo: Pick<ApplyValues, 'isHipass' | 'isMaster' | 'isRf'>) => {
     setApplyValues((prev) => ({
       ...prev,
       ...cardInfo,
@@ -86,13 +82,10 @@ const ApplyIndex = ({
 
   return (
     <div>
+      <ProgressBar progress={(applyValues.step as number) / LAST_STEP} />
       {applyValues.step === 0 ? <Terms onNext={handleTermsChange} /> : null}
-      {applyValues.step === 1 ? (
-        <BasicInfo onNext={handleBasicInfoChange} />
-      ) : null}
-      {applyValues.step === 2 ? (
-        <CardInfo onNext={handleCardInfoChange} />
-      ) : null}
+      {applyValues.step === 1 ? <BasicInfo onNext={handleBasicInfoChange} /> : null}
+      {applyValues.step === 2 ? <CardInfo onNext={handleCardInfoChange} /> : null}
     </div>
   );
 };

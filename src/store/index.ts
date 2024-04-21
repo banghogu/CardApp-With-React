@@ -1,17 +1,10 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import storage from "redux-persist/lib/storage";
-import persistReducer from "redux-persist/es/persistReducer";
-import persistStore from "redux-persist/es/persistStore";
-import {
-  FLUSH,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-  REHYDRATE,
-} from "redux-persist/es/constants";
-import userSlice from "./user.slice";
-import applyStepSlice from "./applyStep.slice";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import storage from 'redux-persist/lib/storage';
+import persistReducer from 'redux-persist/es/persistReducer';
+import persistStore from 'redux-persist/es/persistStore';
+import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
+import userSlice from './user.slice';
+import applyStepSlice from './applyStep.slice';
 
 const rootReducer = combineReducers({
   userSlice: userSlice,
@@ -19,9 +12,9 @@ const rootReducer = combineReducers({
 });
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage: storage,
-  whiteList: ["userSlice", "applyStepSlice"],
+  whiteList: ['userSlice', 'applyStepSlice'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

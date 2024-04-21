@@ -1,12 +1,12 @@
-import { ApplyValues } from "@/models/apply";
-import { createSlice } from "@reduxjs/toolkit";
+import { ApplyValues } from '@/models/apply';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   stepInfo: {} as Partial<ApplyValues>,
 };
 
 export const applyStepSlice = createSlice({
-  name: "applyStep",
+  name: 'applyStep',
   initialState,
   reducers: {
     setStep1: (state, action) => {
@@ -36,6 +36,5 @@ export const applyStepSlice = createSlice({
   },
 });
 
-export const { setStep1, setStep2, setStep3, clearStep } =
-  applyStepSlice.actions;
+export const { setStep1, setStep2, setStep3, clearStep } = applyStepSlice.actions;
 export default applyStepSlice.reducer;

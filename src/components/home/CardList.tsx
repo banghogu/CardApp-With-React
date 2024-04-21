@@ -1,10 +1,11 @@
-import ListRow from "../shared/ListRow";
-import { useInfiniteQuery } from "react-query";
-import { getCards } from "@/remote/card";
-import { flatten } from "lodash";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Badge from "../shared/Badge";
-import { useNavigate } from "react-router-dom";
+import ListRow from '../shared/ListRow';
+import { useInfiniteQuery } from 'react-query';
+import { getCards } from '@/remote/card';
+
+import InfiniteScroll from 'react-infinite-scroll-component';
+import Badge from '../shared/Badge';
+import { useNavigate } from 'react-router-dom';
+import { flatten } from 'lodash';
 
 const CardList = () => {
   const navigate = useNavigate();
@@ -13,10 +14,11 @@ const CardList = () => {
     hasNextPage = false,
     fetchNextPage,
     isFetching,
-  } = useInfiniteQuery(["cards"], ({ pageParam }) => getCards(pageParam), {
+  } = useInfiniteQuery(['cards'], ({ pageParam }) => getCards(pageParam), {
     getNextPageParam: (snapshot) => {
       return snapshot.lastVisible;
     },
+    suspense: true,
   });
   if (data == null) {
     return null;
@@ -36,7 +38,7 @@ const CardList = () => {
       <InfiniteScroll
         dataLength={cards.length}
         hasMore={hasNextPage}
-        loader={<></>}
+        loader={<ListRow.Skeleton />}
         next={loadMore}
         scrollThreshold="130px"
       >
@@ -45,15 +47,8 @@ const CardList = () => {
             return (
               <ListRow
                 key={card.id}
-                contents={
-                  <ListRow.Texts
-                    title={`${index + 1}위`}
-                    subTitle={card.name}
-                  />
-                }
-                right={
-                  card.payback != null ? <Badge label={card.payback} /> : null
-                }
+                contents={<ListRow.Texts title={`${index + 1}위`} subTitle={card.name} />}
+                right={card.payback != null ? <Badge label={card.payback} /> : null}
                 withArrow={true}
                 onClick={() => {
                   navigate(`/card/${card.id}`);

@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/remote/firebase";
-import { useAppDispatch } from "@/hooks";
-import { setUser } from "@/store/user.slice";
+import { useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/remote/firebase';
+import { useAppDispatch } from '@/hooks';
+import { setUser } from '@/store/user.slice';
 
 // 인증처리
 function AuthGuard({ children }: { children: React.ReactNode }) {
@@ -14,9 +14,9 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
       dispatch(
         setUser({
           uid: user.uid,
-          email: user.email ?? "",
-          displayName: user.displayName ?? "",
-          photoURL: user.photoURL ?? "",
+          email: user.email ?? '',
+          displayName: user.displayName ?? '',
+          photoURL: user.photoURL ?? '',
         })
       );
     } else {

@@ -1,16 +1,15 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Test from "./pages/Test";
-import Card from "./pages/Card";
-import ScrollToTop from "./components/shared/ScrollToTop";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import Navbar from "./components/shared/Navbar";
-import PrivateRoute from "./components/auth/PrivateRoute";
-import Apply from "./pages/Apply";
-import ApplyDone from "./pages/ApplyDone";
-import { Suspense } from "react";
-import MyPage from "./pages/Mypage";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import ScrollToTop from './components/shared/ScrollToTop';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import Navbar from './components/shared/Navbar';
+import PrivateRoute from './components/auth/PrivateRoute';
+import Apply from './pages/Apply';
+import ApplyDone from './pages/ApplyDone';
+import { Suspense } from 'react';
+import MyPage from './pages/Mypage';
+import CardPage from './pages/Card';
 
 function App() {
   return (
@@ -19,8 +18,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" Component={Home} />
-        <Route path="/test" Component={Test} />
-        <Route path="/card/:id" Component={Card} />
+        <Route path="/card/:id" Component={CardPage} />
         <Route path="/signin" Component={SignIn} />
         <Route path="/signup" Component={SignUp} />
         <Route

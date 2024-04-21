@@ -1,13 +1,19 @@
-import React, { useState } from "react";
-import ApplyIndex from "@components/apply/index";
-import { useMutation, useQuery } from "react-query";
-import { APPLY_STATUS, ApplyValues } from "@/models/apply";
-import { applyCard, getAppliedCard, updateApplyCard } from "@/remote/apply";
-import { useAlertContext } from "@/contexts/AlertContext";
-import { useAppSelector } from "@/hooks";
-import { RootState } from "@/store";
-import { useNavigate, useParams } from "react-router-dom";
-import FullPageLoader from "@/components/shared/FullPageLoader";
+import { useState } from 'react';
+import ApplyIndex from '@components/apply/index';
+import { useMutation, useQuery } from 'react-query';
+import { APPLY_STATUS, ApplyValues } from '@/models/apply';
+import { applyCard, getAppliedCard, updateApplyCard } from '@/remote/apply';
+import { useAlertContext } from '@/contexts/AlertContext';
+import { useAppSelector } from '@/hooks';
+import { RootState } from '@/store';
+import { useNavigate, useParams } from 'react-router-dom';
+import FullPageLoader from '@/components/shared/FullPageLoader';
+
+const STATUS_MESSAGE = {
+  [APPLY_STATUS.REDAY]: '카드 심사를 준비하고있습니다.',
+  [APPLY_STATUS.PROGRESS]: '카드를 심사중입니다. 잠시만 기다려주세요.',
+  [APPLY_STATUS.COMPLETE]: '카드 신청이 완료되었습니다.',
+};
 
 const Apply = () => {
   const { user } = useAppSelector((state: RootState) => state.userSlice);
@@ -16,27 +22,24 @@ const Apply = () => {
   const [readyToPoll, setReadyToPoll] = useState(false);
   const navigate = useNavigate();
 
-  const { mutate, isLoading } = useMutation(
-    (applyValues: ApplyValues) => applyCard(applyValues),
-    {
-      onSuccess: () => {
-        //콜백 실행
-        setReadyToPoll(true);
-      },
-      onError: () => {
-        open({
-          title: "카드를 신청하지 못했어요. 나중에 다시 시도해주세요.",
-          onButtonClick: () => {
-            //콜백실행
-            window.history.back();
-          },
-        });
-      },
-    }
-  );
+  const { mutate, isLoading } = useMutation((applyValues: ApplyValues) => applyCard(applyValues), {
+    onSuccess: () => {
+      //콜백 실행
+      setReadyToPoll(true);
+    },
+    onError: () => {
+      open({
+        title: '카드를 신청하지 못했어요. 나중에 다시 시도해주세요.',
+        onButtonClick: () => {
+          //콜백실행
+          window.history.back();
+        },
+      });
+    },
+  });
 
   const { data: query1 } = useQuery(
-    ["applyStatus", 1],
+    ['applyStatus', 1],
     async () => {
       const values = [
         APPLY_STATUS.REDAY,
@@ -46,7 +49,7 @@ const Apply = () => {
       ];
       const status = values[Math.floor(Math.random() * values.length)];
       if (status === APPLY_STATUS.REJECT) {
-        throw new Error("카드발급 실패");
+        throw new Error('카드발급 실패');
       }
       return status;
     },
@@ -63,7 +66,7 @@ const Apply = () => {
               status: APPLY_STATUS.COMPLETE,
             },
           });
-          navigate("/apply/done?success=true", {
+          navigate('/apply/done?success=true', {
             replace: true,
           });
         }
@@ -77,7 +80,7 @@ const Apply = () => {
             status: APPLY_STATUS.REJECT,
           },
         });
-        navigate("/apply/done?success=false", {
+        navigate('/apply/done?success=false', {
           replace: true,
         });
       },
@@ -85,7 +88,7 @@ const Apply = () => {
   );
 
   const { data: query2 } = useQuery(
-    ["applied", user?.uid, id],
+    ['applied', user?.uid, id],
     async () => {
       return await getAppliedCard({ userId: user?.uid as string, cardId: id });
     },
@@ -96,7 +99,7 @@ const Apply = () => {
         }
         if (data?.status === APPLY_STATUS.COMPLETE) {
           open({
-            title: "이미 발급이 완료된 카드입니다",
+            title: '이미 발급이 완료된 카드입니다',
             onButtonClick: () => {
               window.history.back();
             },
@@ -115,7 +118,7 @@ const Apply = () => {
   }
 
   if (isLoading || readyToPoll) {
-    return <FullPageLoader message="카드를 신청중입니다" />;
+    return <FullPageLoader message={STATUS_MESSAGE[query1 ?? 'REDAY']} />;
   }
 
   return <ApplyIndex onSubmit={mutate} />;

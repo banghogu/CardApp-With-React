@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { ChangeEvent, useCallback, useMemo, useState } from "react";
-import { css } from "@emotion/react";
-import validator from "validator";
+import { ChangeEvent, useCallback, useMemo, useState } from 'react';
+import { css } from '@emotion/react';
+import validator from 'validator';
 
-import Flex from "@shared/Flex";
-import TextField from "@shared/TextField";
-import FixedBottomButton from "@shared/FixedBottomButton";
-import Spacing from "@shared/Spacing";
-import { FormValues } from "@/models/signup";
+import Flex from '@shared/Flex';
+import TextField from '@shared/TextField';
+import FixedBottomButton from '@shared/FixedBottomButton';
+import Spacing from '@shared/Spacing';
+import { FormValues } from '@/models/signup';
 
 interface FormProps {
   onSubmit: (formValues: FormValues) => void;
@@ -15,10 +15,10 @@ interface FormProps {
 
 const Form = ({ onSubmit }: FormProps) => {
   const [formValues, setFormValues] = useState<FormValues>({
-    email: "",
-    password: "",
-    rePassword: "",
-    name: "",
+    email: '',
+    password: '',
+    rePassword: '',
+    name: '',
   });
   const [dirty, setDirty] = useState<Partial<FormValues>>({});
 
@@ -32,7 +32,7 @@ const Form = ({ onSubmit }: FormProps) => {
   const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
     setDirty((prevDirty) => ({
       ...prevDirty,
-      [e.target.name]: "true",
+      [e.target.name]: 'true',
     }));
   };
 
@@ -49,7 +49,7 @@ const Form = ({ onSubmit }: FormProps) => {
         value={formValues.email}
         onChange={handleFormValues}
         hasError={Boolean(dirty.email) && Boolean(errors.email)}
-        helpMessage={Boolean(dirty.email) ? errors.email : ""}
+        helpMessage={Boolean(dirty.email) ? errors.email : ''}
         onBlur={handleBlur}
       />
       <Spacing size={16} />
@@ -60,7 +60,7 @@ const Form = ({ onSubmit }: FormProps) => {
         value={formValues.password}
         onChange={handleFormValues}
         hasError={Boolean(dirty.password) && Boolean(errors.password)}
-        helpMessage={Boolean(dirty.password) ? errors.password : ""}
+        helpMessage={Boolean(dirty.password) ? errors.password : ''}
         onBlur={handleBlur}
       />
       <Spacing size={16} />
@@ -71,7 +71,7 @@ const Form = ({ onSubmit }: FormProps) => {
         value={formValues.rePassword}
         onChange={handleFormValues}
         hasError={Boolean(dirty.rePassword) && Boolean(errors.rePassword)}
-        helpMessage={Boolean(dirty.rePassword) ? errors.rePassword : ""}
+        helpMessage={Boolean(dirty.rePassword) ? errors.rePassword : ''}
         onBlur={handleBlur}
       />
       <Spacing size={16} />
@@ -82,7 +82,7 @@ const Form = ({ onSubmit }: FormProps) => {
         value={formValues.name}
         onChange={handleFormValues}
         hasError={Boolean(dirty.name) && Boolean(errors.name)}
-        helpMessage={Boolean(dirty.name) ? errors.name : ""}
+        helpMessage={Boolean(dirty.name) ? errors.name : ''}
         onBlur={handleBlur}
       />
 
@@ -105,23 +105,21 @@ function validate(formValues: FormValues) {
   let errors: Partial<FormValues> = {};
 
   if (validator.isEmail(formValues.email) === false) {
-    errors.email = "이메일 형식을 확인해주세요";
+    errors.email = '이메일 형식을 확인해주세요';
   }
 
   if (formValues.password.length < 8) {
-    errors.password = "비밀번호를 8글자 이상 입력해주세요";
+    errors.password = '비밀번호를 8글자 이상 입력해주세요';
   }
 
   if (formValues.rePassword.length < 8) {
-    errors.rePassword = "비밀번호를 8글자 이상 입력해주세요";
-  } else if (
-    validator.equals(formValues.rePassword, formValues.password) === false
-  ) {
-    errors.rePassword = "비밀번호를 확인해주세요";
+    errors.rePassword = '비밀번호를 8글자 이상 입력해주세요';
+  } else if (validator.equals(formValues.rePassword, formValues.password) === false) {
+    errors.rePassword = '비밀번호를 확인해주세요';
   }
 
   if (formValues.name.length < 2) {
-    errors.name = "이름은 2글자 이상 입력해주세요";
+    errors.name = '이름은 2글자 이상 입력해주세요';
   }
 
   return errors;

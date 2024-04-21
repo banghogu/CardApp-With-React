@@ -1,15 +1,15 @@
-import { useCallback } from "react";
-import { signOut } from "firebase/auth";
+import { useCallback } from 'react';
+import { signOut } from 'firebase/auth';
 
-import Flex from "@shared/Flex";
-import Text from "@shared/Text";
-import Button from "@shared/Button";
-import Spacing from "@shared/Spacing";
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import { RootState } from "@/store";
-import { auth } from "@/remote/firebase";
-import MyImage from "@/components/my/MyImage";
-import { clearUser } from "@/store/user.slice";
+import Flex from '@shared/Flex';
+import Text from '@shared/Text';
+import Button from '@shared/Button';
+import Spacing from '@shared/Spacing';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { RootState } from '@/store';
+import { auth } from '@/remote/firebase';
+import MyImage from '@/components/my/MyImage';
+import { clearUser } from '@/store/user.slice';
 
 function MyPage() {
   const { user } = useAppSelector((state: RootState) => state.userSlice);

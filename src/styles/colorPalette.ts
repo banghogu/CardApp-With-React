@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 //최상위에서 색 변수 지정
 export const colorPalette = css`
@@ -15,12 +15,12 @@ export const colorPalette = css`
 //지정한 색 변수를 바탕으로 생성
 // colors.red 형식
 export const colors = {
-  red: "var(--red)",
-  blue: "var(--blue)",
-  green: "var(--green)",
-  white: "var(--white)",
-  black: "var(--black)",
-  grey: "var(--grey)",
+  red: 'var(--red)',
+  blue: 'var(--blue)',
+  green: 'var(--green)',
+  white: 'var(--white)',
+  black: 'var(--black)',
+  grey: 'var(--grey)',
 };
 
 //색상 이름을 나타내는 문자열 중 하나만을 선택할 수 있는 타입을 정의

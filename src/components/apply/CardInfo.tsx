@@ -1,16 +1,12 @@
-import React, { useState } from "react";
-import { ApplyValues } from "@/models/apply";
-import Button from "../shared/Button";
-import Spacing from "../shared/Spacing";
-import FixedBottomButton from "../shared/FixedBottomButton";
+import { useState } from 'react';
+import { ApplyValues } from '@/models/apply';
+import Button from '../shared/Button';
+import Spacing from '../shared/Spacing';
+import FixedBottomButton from '../shared/FixedBottomButton';
 
-type CardInfoValues = Pick<ApplyValues, "isHipass" | "isMaster" | "isRf">;
+type CardInfoValues = Pick<ApplyValues, 'isHipass' | 'isMaster' | 'isRf'>;
 
-const CardInfo = ({
-  onNext,
-}: {
-  onNext: (cardInfoValues: CardInfoValues) => void;
-}) => {
+const CardInfo = ({ onNext }: { onNext: (cardInfoValues: CardInfoValues) => void }) => {
   const [cardInfoValues, setCardInfoValues] = useState<CardInfoValues>({
     isHipass: false,
     isMaster: false,

@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { MouseEvent } from "react";
-import { css } from "@emotion/react";
-import Flex from "./Flex";
-import Text from "./Text";
+import { MouseEvent } from 'react';
+import { css } from '@emotion/react';
+import Flex from './Flex';
+import Text from './Text';
 
-import { colors } from "@styles/colorPalette";
+import { colors } from '@styles/colorPalette';
 
 function Agreement({ children }: { children: React.ReactNode }) {
   return (
@@ -64,13 +64,7 @@ function AgreementDescription({
 Agreement.Title = AgreementTitle;
 Agreement.Description = AgreementDescription;
 
-function IconCheck({
-  checked,
-  withCircle = false,
-}: {
-  checked: boolean;
-  withCircle?: boolean;
-}) {
+function IconCheck({ checked, withCircle = false }: { checked: boolean; withCircle?: boolean }) {
   return (
     <svg id="Layer_1" version="1.1" viewBox="0 0 64 64" width={24} height={24}>
       <g>

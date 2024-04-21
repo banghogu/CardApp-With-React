@@ -1,18 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
-import Flex from "../shared/Flex";
-import Text from "../shared/Text";
-import { css } from "@emotion/react";
-import { colors } from "@/styles/colorPalette";
-import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
-import { useQuery } from "react-query";
-import { getAdBanners } from "@/remote/addBanner";
-import "swiper/css";
-import { Swiper, SwiperSlide } from "swiper/react";
+import Flex from '../shared/Flex';
+import Text from '../shared/Text';
+import { css } from '@emotion/react';
+import { colors } from '@/styles/colorPalette';
+import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { getAdBanners } from '@/remote/addBanner';
+import 'swiper/css';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 const AdBanners = () => {
-  const { data } = useQuery(["adBanners"], () => getAdBanners());
+  const { data } = useQuery(['adBanners'], () => getAdBanners());
 
   return (
     <Containner>

@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { css, keyframes } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css, keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
 
-import { createPortal } from "react-dom";
-import { colors } from "@styles/colorPalette";
+import { createPortal } from 'react-dom';
+import { colors } from '@styles/colorPalette';
 
-import Button from "@shared/Button";
+import Button from '@shared/Button';
 
 interface FixedBottomButtonProps {
   label: string;
@@ -13,12 +13,8 @@ interface FixedBottomButtonProps {
   disabled?: boolean;
 }
 
-function FixedBottomButton({
-  label,
-  onClick,
-  disabled,
-}: FixedBottomButtonProps) {
-  const $portalRoot = document.getElementById("root-portal");
+function FixedBottomButton({ label, onClick, disabled }: FixedBottomButtonProps) {
+  const $portalRoot = document.getElementById('root-portal');
 
   if ($portalRoot == null) {
     return null;
@@ -26,13 +22,7 @@ function FixedBottomButton({
 
   return createPortal(
     <Container>
-      <Button
-        size="medium"
-        disabled={disabled}
-        full={true}
-        onClick={onClick}
-        css={buttonStyles}
-      >
+      <Button size="medium" disabled={disabled} full={true} onClick={onClick} css={buttonStyles}>
         {label}
       </Button>
     </Container>,
